@@ -2,7 +2,7 @@ import moment from "moment/moment"
 
 //set according to indian time standard
 
-export default function FindTime(timestamp){
+export function findTime(timestamp){
 
     const time = moment.unix(timestamp).local()
 
@@ -37,5 +37,19 @@ export default function FindTime(timestamp){
 
         return dateString
    
+}
+
+export function findDate(){
+
+  const date = new Date()
+let dateArray = date.toUTCString().split(" ")
+const formattedDate = dateArray.filter((item, index)=>{
+  if(index <4){
+    return item
+  }
+}).join(" ")
+
+return formattedDate
+
 }
 

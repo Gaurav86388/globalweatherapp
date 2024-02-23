@@ -9,11 +9,12 @@ const API_KEY = "d5cd777a1662d103b3db6ea74aad9bb3"
 
 function App() {
 
-  const [location, setLocation] = useState("dibrugarh")
+  const [location, setLocation] = useState("Dibrugarh")
   const [weatherData, setWeatherData] = useState({
     cityname: "",
     weather: "",
     description: "",
+    state: "",
     icon: "",
     temp: null,
     maxTemp: null,
@@ -36,7 +37,7 @@ function App() {
          
          console.log(data)
          setWeatherData(prevValue=>{
-            return {...prevValue, cityname: data.name, weather: data.weather[0].main,
+            return {...prevValue, weather: data.weather[0].main,
                       description: data.weather[0].description, icon: data.weather[0].icon,
                       temp: data.main.temp, maxTemp: data.main.temp_max,
                       minTemp: data.main.temp_min, feelsLike: data.main.feels_like, sunrise: data.sys.sunrise, 
@@ -49,18 +50,19 @@ function App() {
     }
 
     function getGeoLocation(){
-      if(navigator.geolocation){
+      fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${API_KEY}`)
+      .then(res=>res.json())
+      .then(data=>{
 
-          navigator.geolocation.getCurrentPosition((location)=>{
-            latitude = location.coords.latitude;
-            longitude = location.coords.longitude
+        console.log(data[0])
 
-            return getWeatherDetails(latitude, longitude)
-          })
-      }
-      else{
-        console.log("Geolocation is not supported by this browser.")
-      }
+        latitude = data[0].lat
+        longitude = data[0].lon
+        setWeatherData(prev=>({...prev, state: data[0].state, cityname: data[0].name }))
+        getWeatherDetails(latitude, longitude)
+
+      })
+      .catch(e=>console.error(e))
     }
     
     getGeoLocation()

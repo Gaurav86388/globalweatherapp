@@ -10,7 +10,7 @@
 
 body{
 
-    background:  url("/weatherbg.jpg");
+    background:  url("/weatherbg.png");
     background-repeat: no-repeat;
     background-size: cover;
     backdrop-filter: blur(1.8px);
@@ -19,7 +19,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Montserrat', sans-serif;;
+    font-family: 'Montserrat', sans-serif;
+    
 }
 
 
