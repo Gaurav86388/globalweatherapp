@@ -56,7 +56,7 @@ function App() {
       .then(res=>res.json())
       .then(data=>{
 
-        console.log(data[0])
+        
 
         latitude = data[0].lat
         longitude = data[0].lon

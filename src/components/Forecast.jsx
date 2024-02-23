@@ -8,7 +8,6 @@ const cardBodyStyle = {width: "100%", height: "100%",display: "flex", flexDirect
 
 
 const Forecast = ({forecast}) => {
-    console.log(forecast)
     
     let day = forecast.dt_txt.split(" ")[0].split("-")
     day = day[2] +"."+ day[1]
@@ -30,10 +29,10 @@ const Forecast = ({forecast}) => {
 
     <div className="card" style={{...cardStyle, width: "13rem"}}>
     <div className="card-body" style={{...cardBodyStyle}}>
-      <h5 >{day}</h5>
-      <h6>{time} </h6>
+      <h6>{day}</h6>
+      <h7>{time} </h7>
       <img src={"src/assets/"+`${img_url}`+".png"} alt="weather image" style={{height: "32px", width: "43px"}}/>
-      <p>{temp}</p>
+      <p><span style={{fontSize: "16px"}}>{temp}° </span>c </p>
 
     </div>
   </div>
