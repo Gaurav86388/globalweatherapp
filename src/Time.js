@@ -27,11 +27,11 @@ export function findTime(timestamp){
     if(hour > 12){
       
       hour = hour - 12;
-      dateString = hour.toString() + ":" + minutes.toString() + "P.M"
+      dateString = hour.toString() + ":" + minutes.toString() + " P.M"
       
     }
     else{
-      dateString = hour.toString() + ":" + minutes.toString() + "A.M"
+      dateString = hour.toString() + ":" + minutes.toString() + " A.M"
     }
     
 

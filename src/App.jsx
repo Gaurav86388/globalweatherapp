@@ -3,13 +3,15 @@ import "./scss/styles.scss"
 
 import Searchbar from './components/Searchbar';
 import Display from './components/Display';
+import Forecast from './components/Forecast';
 
 
 const API_KEY = "d5cd777a1662d103b3db6ea74aad9bb3"
 
 function App() {
 
-  const [location, setLocation] = useState("Dibrugarh")
+  const [location, setLocation] = useState("London")
+  const [forecast, setForecast] = useState([])
   const [weatherData, setWeatherData] = useState({
     cityname: "",
     weather: "",
@@ -60,9 +62,28 @@ function App() {
         longitude = data[0].lon
         setWeatherData(prev=>({...prev, state: data[0].state, cityname: data[0].name }))
         getWeatherDetails(latitude, longitude)
+        getForecastDetails(latitude, longitude)
 
       })
       .catch(e=>console.error(e))
+    }
+
+    function getForecastDetails(latitude, longitude){
+
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&units=metric&appid=${API_KEY}`)
+      .then(res=>res.json())
+      .then(data=>{
+        let formattedForecast = data.list.filter((item, index)=>{
+          if(index >1 && index < 8){
+              return item
+          }
+
+          
+      })
+      setForecast(formattedForecast)
+      })
+      .catch(e=>console.error(e))
+      
     }
     
     getGeoLocation()
@@ -75,12 +96,19 @@ function handleLocation(cityname){
 
 }
 
-
-
   return (
   <>
   <Searchbar handleOnButtonClick = {handleLocation}/>
   <Display weatherData = {weatherData} />
+  
+  <ul style={{display: "flex", justifyContent: "space-between"}}> 
+        {forecast.map((item, index)=>{
+
+      return <li key={index}><Forecast forecast = {item}/></li>
+      })}  
+  </ul>
+
+  
   </>
       
  
