@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { currentTime } from '../Time'
 const cardStyle = {width: "48rem", height: "14rem", backgroundColor: 'rgba(255, 255, 255, 0.2)', border: "1px transparent",
 display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}
 
@@ -30,7 +30,7 @@ const Forecast = ({forecast}) => {
     <div className="card" style={{...cardStyle, width: "13rem"}}>
     <div className="card-body" style={{...cardBodyStyle}}>
       <h6>{day}</h6>
-      <h7>{time} </h7>
+      <h6>{time} </h6>
       <img src={"src/assets/"+`${img_url}`+".png"} alt="weather image" style={{height: "32px", width: "43px"}}/>
       <p><span style={{fontSize: "16px"}}>{temp}° </span>c </p>
 

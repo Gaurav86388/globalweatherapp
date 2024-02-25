@@ -1,43 +1,8 @@
-import moment from "moment/moment"
 
+import moment from 'moment-timezone';
 //set according to indian time standard
 
-export function findTime(timestamp){
 
-    const time = moment.unix(timestamp).local()
-
-    let hour = time.hour() + 5
-    let minutes = time.minutes() + 30
-    
-    if(minutes >= 60){
-      hour += 1;
-      minutes = minutes % 60
-      
-    
-    }
-    
-      if(minutes < 10){
-      
-      minutes = "0" + minutes.toString()
-      
-    }
-    
-    
-    let dateString = ""
-    if(hour > 12){
-      
-      hour = hour - 12;
-      dateString = hour.toString() + ":" + minutes.toString() + " P.M"
-      
-    }
-    else{
-      dateString = hour.toString() + ":" + minutes.toString() + " A.M"
-    }
-    
-
-        return dateString
-   
-}
 
 export function findDate(){
 
@@ -53,3 +18,16 @@ return formattedDate
 
 }
 
+export function currentTime(timezoneOffset) {
+ 
+  let date = new Date()
+
+  date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
+ 
+  const targetCityTimeInHour =  (timezoneOffset/60) //divide by no of secs in one min to convert in min
+
+  date.setMinutes(date.getMinutes() + targetCityTimeInHour)
+
+  return date
+
+}

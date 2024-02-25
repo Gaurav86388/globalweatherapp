@@ -4,28 +4,32 @@ import "./scss/styles.scss"
 import Searchbar from './components/Searchbar';
 import Display from './components/Display';
 import Forecast from './components/Forecast';
+import { currentTime } from './Time';
 
 
 const API_KEY = "d5cd777a1662d103b3db6ea74aad9bb3"
 
 function App() {
 
-  const [location, setLocation] = useState("London")
+  const [clock, setClock] = useState()
+  const [location, setLocation] = useState("Dibrugarh")
   const [forecast, setForecast] = useState([])
   const [weatherData, setWeatherData] = useState({
     cityname: "",
     weather: "",
     description: "",
     state: "",
-    icon: "",
     temp: null,
     maxTemp: null,
     minTemp: null,
     feelsLike: null,
+    pressure: null,
+    humidity: null,
+    visibility: null,
+    windspeed: null,
     sunrise: null,
     sunset: null,
-    visibility: null,
-    windspeed: null
+    timezone: null,
 
   });
 
@@ -40,10 +44,11 @@ function App() {
          console.log(data)
          setWeatherData(prevValue=>{
             return {...prevValue, weather: data.weather[0].main,
-                      description: data.weather[0].description, icon: data.weather[0].icon,
+                      description: data.weather[0].description, 
                       temp: data.main.temp, maxTemp: data.main.temp_max,
-                      minTemp: data.main.temp_min, feelsLike: data.main.feels_like, sunrise: data.sys.sunrise, 
-                      sunset: data.sys.sunset, visibility: data.visibility, windspeed: data.wind.speed      
+                      minTemp: data.main.temp_min, feelsLike: data.main.feels_like, pressure: data.main.pressure, 
+                      humidity: data.main.humidity, visibility: data.visibility, windspeed: data.wind.speed,
+                      sunrise: data.sys.sunrise, sunset: data.sys.sunset, timezone: data.timezone      
           
         }})
 
@@ -95,11 +100,46 @@ function handleLocation(cityname){
   setLocation(cityname)
 
 }
+  
+
+function Clock(){
+
+const [currentTimezone, setCurrentTimezone] = useState(weatherData.timezone)
+  /* useEffect(()=>{
+    
+    const clocktime = setInterval(()=>{
+      const targetCityTime = currentTime(weatherData.timezone)
+      setClock(targetCityTime.toLocaleTimeString())
+    }, 1000)
+
+    const checktimezone = setInterval(()=>{
+
+      if(currentTimezone !== weatherData.timezone){
+        clearInterval(clocktime)
+        setCurrentTimezone(weatherData.timezone)
+        clearInterval(checktimezone)
+      }
+      
+    }, 500)
+    
+    
+  
+    }, [weatherData.timezone]) */
+
+
+  return <h4 style={{marginTop: "20px",  right: "15px",
+  color:"aliceblue", fontWeight: "400", fontSize: "32px", width: "auto", 
+  position: "absolute", top: "73px", left: "65px"}}>{clock}</h4>
+
+}
 
   return (
   <>
+  
   <Searchbar handleOnButtonClick = {handleLocation}/>
-  <Display weatherData = {weatherData} />
+  <Clock />
+
+  <Display weatherData = {weatherData} clock={clock}/>
   
   <ul style={{display: "flex", justifyContent: "space-between"}}> 
         {forecast.map((item, index)=>{
