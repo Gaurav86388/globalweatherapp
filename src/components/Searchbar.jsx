@@ -12,7 +12,7 @@ function Searchbar({handleOnButtonClick }){
               <div style={{position: "relative"}}>
                   <button type="button" className="btn btn-light" onClick={()=>handleOnButtonClick(cityName)}
                   style={{width: "35px", height: "32px",
-                    backgroundColor: "white",
+                    backgroundColor: "transparent",
                    border: "0px", cursor: 'pointer',
                   borderRadius: "50%", position: "absolute", bottom: "20px", left: "153px",
                   }}

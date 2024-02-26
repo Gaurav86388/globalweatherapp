@@ -1,22 +1,10 @@
 
-import moment from 'moment-timezone';
-//set according to indian time standard
 
-
-
-export function findDate(){
-
-  const date = new Date()
-let dateArray = date.toUTCString().split(" ")
-const formattedDate = dateArray.filter((item, index)=>{
-  if(index <4){
-    return item
-  }
-}).join(" ")
-
-return formattedDate
-
-}
+const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+const months = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
 export function currentTime(timezoneOffset) {
  
@@ -28,6 +16,16 @@ export function currentTime(timezoneOffset) {
 
   date.setMinutes(date.getMinutes() + targetCityTimeInHour)
 
-  return date
+  const currentday = weekdays[date.getDay()]
+   const currentdate =  date.getDate().toLocaleString()
+   const currentmonth =  months[date.getMonth()]
+
+   const dateformat = currentday+ "," + " " + currentdate + " "+ currentmonth
+ 
+
+
+  return {date: date, dateformat: dateformat}
 
 }
+
+
