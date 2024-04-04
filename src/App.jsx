@@ -69,7 +69,7 @@ function App() {
                         longitude = position.coords.longitude
                        
                         
-                        fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=${1}&appid=${API_KEY}`)
+                        fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=${1}&appid=${API_KEY}`)
                         .then(res=>res.json())
                         .then(data=>{
                           setLocation(data.name)
@@ -91,7 +91,7 @@ function App() {
                 }
           else{
 
-            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${API_KEY}`)
+            fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${API_KEY}`)
                 .then(res=>res.json())
                 .then(data=>{
           
