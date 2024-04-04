@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react'
 import "./scss/styles.scss"
-
 import Searchbar from './components/Searchbar';
 import Display from './components/Display';
 import Forecast from './components/Forecast';
 import { currentTime } from './Time';
 
-
-const API_KEY = "d5cd777a1662d103b3db6ea74aad9bb3"
-
-
+const API_KEY = import.meta.env.VITE_API_KEY
 
 function App() {
 
@@ -42,7 +38,7 @@ function App() {
         .then(res=>res.json())
         .then(data=>{
          
-         console.log(data)
+        
          setWeatherData(prevValue=>{
             return {...prevValue, weather: data.weather[0].main,
                       description: data.weather[0].description, 
